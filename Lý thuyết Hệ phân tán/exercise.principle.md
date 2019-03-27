@@ -106,3 +106,43 @@ Câu 6: Vấn đề:
 * độ trễ trả về phản hồi lớn do có nhiều tầng xếp chồng lên nhau
 
 Câu 7: Giải thuật là tốt bởi nó chỉ phụ thuộc vào hàm băm, hình học mà không phải xem xét đến việc định tuyến trên hình trạng mạng (topology)
+
+## Chương 3: Tiến trình và luồng
+> Câu hỏi
+Câu hỏi 1: Có cần thiết phải giới hạn số lượng các luồng trong một tiến trình server?
+
+Câu hỏi 2: Có nên chỉ gắn một luồng đơn duy nhất với một tiến trình nhẹ?
+
+Câu hỏi 3: Có nên chỉ có một tiến trình nhẹ đơn gắn với 1 tiến trình?
+Câu hỏi 4: Bài toán này yêu cầu bạn so sánh thời gian đọc một tệp (file) của một máy chủ tập tin (file server) đơn luồng và một máy chủ đa luồng. Phải mất tổng cộng 15 ms để nhận 1 yêu cầu (request) và thực hiện quá trình xử lý, giả định rằng các dữ liệu cần thiết nằm ở bộ nhớ đệm trong bộ nhớ chính. Nếu cần thiết phải thực hiện một thao tác truy cập ổ đĩa thì cần thêm 75 ms, biết rằng việc phải thực hiện thao tác này có xắc suất là 1/3. Hỏi máy chủ có thể nhận bao nhiêu yêu cầu/giây trong 2 trường hợp: máy chủ là đơn luồng và máy chủ là đa luồng (ngoài luồng nhận và xử lý request, sẽ có thêm 1 luồng để truy cập ổ đĩa nếu cần thiết)? Giải thích.
+
+Câu hỏi 5: Hệ thống X chỉ định máy của user chưa server, trong khi các ứng dụng lại được coi như client. Điều đó có vô lý không? Giải thích.
+
+Câu hỏi 6: Giao thức thiết kế cho hệ thống X gặp phải vấn đề về tính mở rộng. Chỉ ra các giải pháp để giải quyết vấn đề đó?
+
+Câu hỏi 7: Với việc xây dựng một server đồng thời, hãy so sánh việc server này tạo một luồng mới và tạo một tiến trình mới khi nhận được yêu cầu từ phía client. 
+
+Câu hỏi 8: Nếu bây giờ một webserver tổ chức lưu lại thông tin về địa chỉ IP của client và trang web client đó vừa truy cập. Khi có 1 client kết nối với server đó, server sẽ tra xem trong bảng thông tin, nếu tìm thấy thì sẽ gửi nội dung trang web đó cho client. Server này là có trạng thái (stateful) hay không trạng thái (stateless)?
+
+Câu hỏi 9: So sánh Docker và Virtual Machine. 
+
+> Trả lời
+
+1. Có, vì tài nguyên hệ thống có hạn và khả năng xử lý của các luồng cũng vậy.
+
+2. Không, vì nếu luồng bị dừng thì tiến trình nhẹ sẽ không thể đảo công việc tới một luồng khác.
+
+3. Không, vì một tiến trình sinh ra nhiều luồng, cần có nhiều tiến trình nhẹ để quản lý các luồng đó.
+
+4. Khó thế bố thằng nào biết được
+
+5. Không. Vì hệ thống di trú một phần mã của server xuống client để tăng tốc, và khi thực hiện xong một hành động nào đó, các client vẫn phải chuyển yêu cầu lên server chính, nên chúng không bị nhập nhằng.
+
+6. Thực hiện ảo hoá 
+
+7. 
+
+8. CÓ
+
+9. Mọi ứng dụng đều phải chạy trên OS tương ứng của VM
+Docker tạo sẵn môi trường chạy cho các ứng dụng.
