@@ -1,4 +1,4 @@
-# GHi chú về việc tìm hiểu các kỹ thuật và ứng dụng liên quan
+# Ghi chú về việc tìm hiểu các kỹ thuật và ứng dụng liên quan
 
 ## Elastic Search
 
@@ -12,6 +12,12 @@ Nếu dùng cho .NET thì sử dụng 2 thư viện đã viết sẵn cho nền 
 * Elasticsearch-net: low-level
 * NEST: high-level
 2 thư viện trên muốn dùng phải cùng phiên bản với nhau và cùng phiên bản với ES.
+
+### Kịch bản sử dụng
+
+Trong Controller xem Danh sách: 
+  * Tạo một instance của ElasticSearch (cách tạo xem trong mục Getting Stated, phần NEST)
+  * Lấy dữ liệu ra từ DB -> Indexing (dùng `IndexMany` hoặc `Bulk` - có hướng dẫn cùng phần NEST)
 
 ## Multithreading trong .NET
 
