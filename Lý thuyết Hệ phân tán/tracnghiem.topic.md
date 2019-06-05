@@ -1,3 +1,18 @@
+## Topic 6
+Câu hỏi 1: Trong các giao thức phân tầng, mỗi tầng có header riêng của mình để gắn vào gói tin. Có một cách làm khác là tổng hợp tất cả các phần đầu gói tin vào làm một header duy nhất cho tất cả các tầng. Tại sao cách này không được áp dụng?
+- Mỗi tầng phải độc lập với các tầng khác
+- Làm mất tính trong suốt giữa các tầng 
+- Mọi thay đổi trong một tầng sẽ khiến tầng khác biết được
+
+Câu hỏi 2: Trong giao thức yêu cầu trả lời, server có gửi thông điệp báo nhận cho client không? Tại sao?
+> Không, bởi vì thông điệp trả lời cũng đóng vai trò của một thông điệp đón nhận
+
+Câu hỏi 3: Trong truyền thông socket, server có biết trước cổng socket của client trước khi nhận được yêu cầu hay không?
+> không, server chỉ biết sau khi nhận được yêu cầu
+
+Câu hỏi 4: Vai trò của Message Broker trong hệ thống hàng đợi thông điệp là gì?
+> chuyển định dạng của thông điệp đầu vào để các ứng dụng khác hiểu được
+
 ## Topic 11
 
 Câu hỏi 1: Có bao nhiêu thông điệp trong giải thuật phân tán trong việc loại trừ lẫn nhau?
