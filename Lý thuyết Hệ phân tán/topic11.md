@@ -109,7 +109,7 @@ Xét ví dụ,
 - Các thao tác ghi có quan hệ nhân quả được thực hiện cùng thứ tự
 - Các thao tác ghi song song/ tương tranh thì không bắt buộc phải thực hiện theo cùng thứ tự
 
-![causal_consitency](./images/_topic11/causal_consitency.png)
+![causal_consistency](./images/_topic11/causal_consistency.png)
 
 Xét ví dụ,
 Ở hình a, vì có thao tác ghi R(x)a trên P2 trước khi W(x)b nên có thể coi W(x)a có quan hệ nhân quả với W(x)b. Tuy nhiên thứ tự đọc ở P3 và P4 lại khác nhau. Vì vậy không thoả mãn nhân quả
