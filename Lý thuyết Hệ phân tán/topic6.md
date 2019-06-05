@@ -6,10 +6,12 @@
 Trao đổi bằng socket ở tầng giao vận. Việc chuẩn hoá các interface của socket ở tầng giao vận -> dev dễ dàng sử dụng giao thức hướng thông điệp đơn giản. Vì thế các interface chuẩn cho phép đặt một ứng dụng sang một máy khác. Ở đây ta thảo luận về socket trong hệ thống Berkeley Unix
 
 Socket là điểm cuối truyền thông (communication endpoint), cho phép các ứng dụng đọc/ ghi dữ liệu. 
+
 - Việc ghi dữ liệu tương đương với việc gửi dữ liệu qua mạng
 - Việc đọc dữ liệu tương đương với việc nhận dữ liệu từ mạng
 
 Các hàm cơ bản sử dụng (thường là 4 hàm đầu)
+
 Hàm | Mô tả
 --- | ---
 socket | bên gọi sẽ tạo điểm cuối trao đổi thông tin với bên nhận qua giao thức giao vận cụ thể
@@ -23,6 +25,7 @@ close | kết thúc quá trình trao đổi thông tin và đóng gói kết n�
 Khi một kết nối gửi đến, hệ điều hành sẽ tạo ra một socket mới với cùng tính chất với socket ban đầu và gửi trả về cho tiến trình gọi. Về phía client, đầu tiên cũng dùng hàm socket để khởi tạo socket nhưng không cần gắn socket đến một địa chỉ cục bộ, hệ điều hành sẽ tự động đảm nhận việc này.
 
 Socket không đáp ứng được với mạng tốc độ cao & máy tính hiệu năng cao vì những lý do sau:
+
 - Mức độ trừu tượng: chỉ có các hàm send và receive đơn giản
 - Thiết kế chỉ dùng được với TCP/IP -> không phù hợp với giao thức của mạng tốc độ cao
 
@@ -33,10 +36,12 @@ MPI được thiết kế cho các ứng dụng song song và truyền thông t�
 ### 1.2 Hướng thông điệp bền vững
 
 Các khối
+
 * MOM (Message-Oriented Middleware) là lớp quan trọng của các dịch vụ middleware hướng thông điệp.
 * Hệ thống hàng đợi thông điệp hỗ trợ trao đổi thông tin không bền vững và lưu trữ trung gian cho bên gửi và bên nhận khiến chúng không cần thiết phải cùng đang hoạt động lúc truyền thông điệp
 
 Đặc điểm
+
 * Bên gửi chỉ được đảm bảo là thông điệp đã được đưa vào hàng đợi của bên nhận mà không được đảm bảo là bên nhận đã đọc được nó hay chưa -> cơ chế cho phép trao đổi thông tin theo kiểu kết hợp lỏng theo thời gian. Bên gửi và bên nhận có thời gian hoàn toàn độc lập với nhau
 * Chấp nhận độ trễ thời gian cao, lên tới vài phút thay vì chỉ vài giây như các phương pháp tạm thời
 
@@ -45,6 +50,7 @@ Ví dụ: hệ thống Email, bên gửi và bên nhận không cần online cù
 #### Mô hình hàng đợi thông điệp
 
 Ý tưởng:
+
 - các ứng dụng trao đổi thông điệp bằng cách đưa chúng vào các hàng đợi, các thông điệp đó được chuyển đi qua một chuỗi các server và đến một server đích ngay cả khi server đó bị dừng hoạt động khi thông điệp được gửi
 - mỗi ứng dụng có hàng đợi riêng để cho ứng dụng khác gửi thông điệp vào. 
 - một hàng đợi có thể chia sẻ cho nhiều ứng dụng cùng sử dụng 
@@ -55,6 +61,7 @@ Cơ chế liên kết lỏng: bên gửi và bên nhận chạy hoàn toàn đ�
 ![message_queue_model](./images/_topic6/message_queue_model.png)
 
 Xét ví dụ trên hình vẽ
+
 - Ở mô hình a, cả bên gửi và nhận đều đang hoạt động, thông điệp được gửi vào hàng đợi và liên tục được bên nhận lấy ra đọc và xử lý.
 - Ở mô hình b, bên nhận không hoạt động, bên gửi vẫn tiếp tục gửi thông điệp vào hàng đợi.
 - Ở mô hình c, bên gửi không hoạt động, bên nhận lấy thông điệp từ hàng đợi ra và đọc.
@@ -73,6 +80,7 @@ Trong hệ thống hàng đợi thông điệp, cần có các đơn vị quản
 Hiệu quả đối với mạng quy mô lớn. Mỗi nút không thể lưu trữ được bảng ánh xạ đầy đủ hàng đợi địa chỉ.
 
 Ưu điểm
+
 - giúp cho hệ thống hàng đợi thông điệp có tính khả mở. Tuy nhiên hệ thống càng mở rộng thì việc cấu hình đường đi cho từng router càng bất khả thi -> cần có cơ chế định tuyến tự thích nghi
 - xử lý lần hai các thông điệp. Các thông điệp cần được log lại để cho mục đích an ninh và chịu lỗi
 - sử dụng với mục đích multicasting
@@ -92,6 +100,7 @@ Mục đích: trao đổi thông tin phụ thuộc vào thời gian
 ### 2.1 Hỗ trợ phương tiện truyền thông liên tục
 
 Cần có các phương tiện truyền đạt thông tin, bao gồm:
+
 - lưu trữ
 - truyền tin
 - biểu diễn thông tin
@@ -102,6 +111,7 @@ Liên tục | Rời rạc
 cần quan tâm kiểu dữ liệu và mối quan hệ thời gian giữa các mẫu liên tiếp trong một dòng dữ liệu (ví dụ như âm thanh, hình ảnh chuyển động) | vấn đề thời gian không quan trọng (ví dụ văn bản, ảnh cố định, các tệp chương trình)
 
 Dòng dữ liệu
+
 * là một chuỗi các đơn vị dữ liệu liên tục
 * áp dụng cho cả phương tiện truyền thông liên tục và rời rạc (ví dụ TCP/IP thì gửi dòng rời rạc, nhưng để nghe nhạc online thì phải có dòng liên tục)
 * cách thức truyền tin
@@ -128,6 +138,7 @@ Ví dụ về truyền thông đa phương tiện: bậc thang - độ trễ th�
 #### Hệ thống chuyển dòng dữ liệu đa phương tiện
 
 Cho phép tương tác giữa người xem và đoạn video. Người dùng có thể thực hiện các chức năng là tạm dừng, tua lại, tua tiến... Chấp nhận độ trễ thời gian:
+
 - 10s đối với khởi tạo
 - 1-2s để nhận tín hiệu lệnh
 
@@ -136,11 +147,13 @@ Ràng buộc về thời gian cho dẽ liệu truyền đi: làm sao cho chươn
 Hỗ trợ các ứng dụng tương tác thời gian thực (ví dụ gọi trực tuyến). Yêu cầu thời gian trễ cho phép là Audio: < 150ms là tốt < 400ms là ổn. Đã bao gồm độ trễ mức mạng và mức ứng dụng. Nếu thời gian trễ cao hơn bình thường thì gây ảnh hưởng đến tính tương tác.
 
 Thông tin về việc nén dữ liệu
+
 * Audio
   - tần số lấy mẫu cố định: 8000 mẫu/s với điện thoại và 44,100 mẫu/s nếu là nhạc đĩa CD
   - mỗi mẫu được lượng tử hoá. Ví dụ 8bit thì lấy 2^8 mẫu khác
   - ví dụ 8000 mẫu/s, 256 lượng tử hoá -> 64,000 bit/s
   - bên nhận chuyển đổi các bit thành giá trị tương tự
+
 * Video
   - chuỗi các hình ảnh ở tần số cố định
   - ảnh kỹ thuật số là một mảng các pixel, mỗi pixel đại diện cho một bit 
@@ -150,6 +163,7 @@ Thông tin về việc nén dữ liệu
 ### 2.2 Dòng dữ liệu và kiểm soát chất lượng (QoS)
 
 QoS cho dòng dữ liệu liên tục chủ yếu liên quan đến tính kịp thời và độ tin tưởng. Các ảnh hưởng đến QoS:
+
 - bit rate: tần số truyền bit
 - delay: độ trễ thời gian
 - e2e delay: độ trễ thời gian đầu cuối
@@ -161,6 +175,7 @@ Dựa trên tầng IP, hỗ trợ best-effort
 #### Thực thi QoS
 
 Cơ chế hỗ trợ:
+
 - differentiated service: phân lớp ưu tiên cho các gói dữ liệu truyền đi. Các router phải căn cứ vào độ ưu tiên đó để chuyển tiếp dữ liệu truyền 
 - sử dụng bộ đệm để giảm jitter: đặt bộ đệm ở bên nhận, nhận trước các gói tin rồi mới truyền cho ứng dụng
 - forward error collection (FEC): khi mất K trên N packet, sẽ tự xây dựng lại được K packet đó. Ví dụ: truyền xen kẽ -> bẻ nhỏ gói tin -> nếu mất gói tin thì chỉ mất các phần nhỏ ở bên nhận -> giảm gián đoạn dữ liệu khi nhận được
