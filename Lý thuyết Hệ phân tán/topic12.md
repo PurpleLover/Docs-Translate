@@ -101,7 +101,7 @@ Mỗi phần tử dữ liệu có một bản sao gọi là primary, chịu trá
 - Fixed primary (primary cố định)
 - Dynamic primary (primary động)
 
-#### Giao thức ghi từ xa (fixed)
+#### Giao thức ghi từ xa (remote-write protocol) (fixed)
 
 Cơ chế hoạt động:
 - Tất cả thao tác ghi được chuyển đến cho 1 server
@@ -115,7 +115,7 @@ Cơ chế hoạt động:
 
 Ví dụ trên hình vẽ: Khi client muốn ghi -> gửi thao tác ghi lên bản sao cục bộ -> chuyển tiếp lên primary -> primary quảng bá cho mọi bản sao -> mọi bản sao trả về thông báo nhận -> trả về thông báo ghi cho client. Từ đó mỗi khi muốn đọc -> chỉ cần đọc trên bản sao cục bộ của mình.
 
-#### Giao thức ghi cục bộ (dynamic)
+#### Giao thức ghi cục bộ (local-write protocol) (dynamic)
 
 Cơ chế hoạt động:
 - Khi cần cập nhật, xác định vị trí của primary
