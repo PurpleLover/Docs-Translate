@@ -150,4 +150,3 @@ Kiểu
 
 ### Bảo mật
 Định nghĩa & phân loại kiểu tấn công -> phân tích & xử lý mối đe doạ -> thiết kế hệ thống chống lại các cuộc tấn công
-

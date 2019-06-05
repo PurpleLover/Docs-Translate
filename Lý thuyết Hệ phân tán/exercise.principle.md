@@ -99,7 +99,7 @@ Kiến trúc không tập trung
   - Khó quản lý
   - Khó sao lưu, phục hồi dữ liệu
 
-Câu 5: Nhược điểm quan trọng của mạng overlay tập trung, topology là độ trễ lớn bởi việc truyền qua mỗi node đều phải xác định định tuyến
+Câu 5: Nhược điểm quan trọng của mạng overlay tập trung, topology là độ trễ lớn bởi việc truyền qua mỗi node đều phải xác định định tuyến -> khoảng cách giữa các node trên tầng vật lý có thể xa hơn trên tầng overlay, vì thế sẽ phải định tuyến qua nhiều node để truyền được tin
 
 Câu 6: Vấn đề:
 * nếu một tiến trình gặp sự cố -> yêu cầu không được thực hiện 
