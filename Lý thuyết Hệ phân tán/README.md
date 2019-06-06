@@ -6,7 +6,7 @@ Vì là note nên có vài chỗ hơi nhiều, vài chỗ hơi ít.
 
 ## Phân chia mục
 
-Folder `docx_export` chứa các bản printable (hay còn gọi là khả in). Tức là chứa các bản doc. Bao gồm cho từng topic và một bản cuối đầy đủ. Hãy dùng IQ của mình để tìm ra bản đó nhé.
+Folder `docx_export` chứa các bản printable (hay còn gọi là khả in). Tức là chứa các bản doc. Bao gồm cho từng topic và một bản cuối đầy đủ. Hãy dùng IQ của mình để tìm ra bản đó nhé. Bản cuối đó là công sức take note của Ant, Khoa, Đồng và chỉnh sửa của Khải.
 
 Folder `images` chứa các mục ảnh dùng trong các ví dụ trong topic. Các folder con tương ứng với từng topic.
 
