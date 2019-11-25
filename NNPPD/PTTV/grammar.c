@@ -4,6 +4,7 @@
  * Version 0.1.1 : Chỉ ra dòng gây ra lỗi
  * Version 0.1.2 : In toàn bộ chương trình ra và dừng lại tại dòng sinh lỗi,  
  * định dạng không giống với chương trình ban đầu mà người dùng nhập vào
+ * Version 0.1.3 : Dùng constant và enum thay thế cho các số báo lỗi hoặc TokenType
 */
 
 #include <stdio.h>
@@ -11,6 +12,9 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include "scanner.c"
+#include "grammar.h"
+
+#define MAX_NUMBER_LIMIT 999999
 
 // Declaration
 void error(int errorType);
@@ -37,61 +41,61 @@ void printPunc(int token)
 {
   switch (token)
   {
-  case 18:
+  case PLUS:
     printf("+");
     break;
-  case 19:
+  case MINUS:
     printf("-");
     break;
-  case 20:
+  case TIMES:
     printf("*");
     break;
-  case 21:
+  case SLASH:
     printf("/");
     break;
-  case 22:
+  case EQU:
     printf("=");
     break;
-  case 23:
+  case NEQ:
     printf("<>");
     break;
-  case 24:
+  case LSS:
     printf("<");
     break;
-  case 25:
+  case LEQ:
     printf("<=");
     break;
-  case 26:
+  case GTR:
     printf(">");
     break;
-  case 27:
+  case GEQ:
     printf(">=");
     break;
-  case 28:
+  case LPARENT:
     printf("(");
     break;
-  case 29:
+  case RPARENT:
     printf(")");
     break;
-  case 30:
+  case LBRACK:
     printf("[");
     break;
-  case 31:
+  case RBRACK:
     printf("]");
     break;
-  case 32:
+  case PERIOD:
     printf(".");
     break;
-  case 33:
+  case COMMA:
     printf(",");
     break;
-  case 34:
+  case SEMICOLON:
     printf(";");
     break;
-  case 35:
+  case ASSIGN:
     printf(":=");
     break;
-  case 36:
+  case PERCENT:
     printf("%%");
     break;
   }
@@ -104,16 +108,16 @@ void printToken()
   if (Token == NUMBER)
   {
     printf("%d", Num);
-    if (Num > 999999)
+    if (Num > MAX_NUMBER_LIMIT)
     {
-      error(37);
+      error(NUMBER_EXCEED_LIMIT);
     }
   }
   else if (Token == IDENT)
   {
     printf("%s", Id);
   }
-  else if (Token > 17 && Token < 37)
+  else if (Token >= PLUS && Token <= PERCENT)
   {
     printPunc(Token);
   }
@@ -129,109 +133,109 @@ void error(int errorType)
   printf("\nLine %d: ", lineNumber);
   switch (errorType)
   {
-  case 1:
+  case SYNTAX_ERROR:
     printf("Error: Syntax Error");
     break;
     // Missing Keyword
-  case 2:
+  case MISSING_KEYWORD_BEGIN:
     printf("Error: Missing keyword Begin");
     break;
-  case 3:
+  case MISSING_KEYWORD_CALL:
     printf("Error: Missing keyword Call");
     break;
-  case 4:
+  case MISSING_KEYWORD_CONST:
     printf("Error: Missing keyword Const");
     break;
-  case 5:
+  case MISSING_KEYWORD_DO:
     printf("Error: Missing keyword Do");
     break;
-  case 6:
+  case MISSING_KEYWORD_END:
     printf("Error: Missing keyword End");
     break;
-  case 7:
+  case MISSING_KEYWORD_ELSE:
     printf("Error: Missing keyword Else");
     break;
-  case 8:
+  case MISSING_KEYWORD_FOR:
     printf("Error: Missing keyword For");
     break;
-  case 9:
+  case MISSING_KEYWORD_IF:
     printf("Error: Missing keyword If");
     break;
-  case 10:
+  case MISSING_KEYWORD_ODD:
     printf("Error: Missing keyword Odd");
     break;
-  case 11:
+  case MISSING_KEYWORD_PROCEDURE:
     printf("Error: Missing keyword Procedure");
     break;
-  case 12:
+  case MISSING_KEYWORD_PROGRAM:
     printf("Error: Missing keyword Program");
     break;
-  case 13:
+  case MISSING_KEYWORD_THEN:
     printf("Error: Missing keyword Then");
     break;
-  case 14:
+  case MISSING_KEYWORD_TO:
     printf("Error: Missing keyword To");
     break;
-  case 15:
+  case MISSING_KEYWORD_VAR:
     printf("Error: Missing keyword Var");
     break;
-  case 16:
+  case MISSING_KEYWORD_WHILE:
     printf("Error: Missing keyword While");
     break;
   // Missing punctuation
-  case 17:
+  case MISSING_PUNCTUATION_LEFT_PARENTHESIS:
     printf("Error: Missing punctuation Left-Parenthesis (");
     break;
-  case 18:
+  case MISSING_PUNCTUATION_RIGHT_PARENTHESIS:
     printf("Error: Missing punctuation Right-Parenthesis )");
     break;
-  case 19:
+  case MISSING_PUNCTUATION_LEFT_BRACKET:
     printf("Error: Missing punctuation Left-Bracket [");
     break;
-  case 20:
+  case MISSING_PUNCTUATION_RIGHT_BRACKET:
     printf("Error: Missing punctuation Right-Bracket ]");
     break;
-  case 21:
+  case MISSING_PUNCTUATION_COMMA:
     printf("Error: Missing punctuation Comma ,");
     break;
-  case 22:
+  case MISSING_PUNCTUATION_SEMICOLON:
     printf("Error: Missing punctuation Semicolon ;");
     break;
-  case 23:
+  case MISSING_PUNCTUATION_PERIOD:
     printf("Error: Missing punctuation Period .");
     break;
-  case 24:
+  case MISSING_PUNCTUATION_EQUAL:
     printf("Error: Missing punctuation Equal =");
     break;
   // Missing operator
-  case 25:
+  case MISSING_OPERATOR_ASSIGN:
     printf("Error: Missing operator Assign :=");
     break;
   // Missing operand
-  case 30:
+  case MISSING_OPERAND:
     printf("Error: Missing operand");
     break;
   // Missing name
-  case 31:
+  case MISSING_PROGRAM_NAME:
     printf("Error: Missing program name");
     break;
-  case 32:
+  case MISSING_CONSTANT_NAME:
     printf("Error: Missing constant name");
     break;
-  case 33:
+  case MISSING_VARIABLE_NAME:
     printf("Error: Missing variable name");
     break;
-  case 34:
+  case MISSING_PROCEDURE_NAME:
     printf("Error: Missing procedure name");
     break;
   // Miscs
-  case 35:
+  case MISSING_RANGE_NUMBER:
     printf("Error: Missing range number");
     break;
-  case 36:
+  case MISSING_PARAMETER_NAME:
     printf("Error: Missing parameter name");
     break;
-  case 37:
+  case NUMBER_EXCEED_LIMIT:
     printf("Error: Number exceed limit");
     break;
   default:
@@ -257,7 +261,7 @@ void factor()
       }
       else
       {
-        error(20);
+        error(MISSING_PUNCTUATION_RIGHT_BRACKET);
       }
     }
   }
@@ -275,7 +279,7 @@ void factor()
     }
     else
     {
-      error(18);
+      error(MISSING_PUNCTUATION_RIGHT_PARENTHESIS);
     }
   }
   else
@@ -345,7 +349,7 @@ void statement()
       }
       else
       {
-        error(20);
+        error(MISSING_PUNCTUATION_RIGHT_BRACKET);
       }
     }
     if (Token == ASSIGN)
@@ -355,7 +359,7 @@ void statement()
     }
     else
     {
-      error(25);
+      error(MISSING_OPERATOR_ASSIGN);
     }
   }
   if (Token == CALL)
@@ -379,13 +383,13 @@ void statement()
         }
         else
         {
-          error(18);
+          error(MISSING_PUNCTUATION_RIGHT_PARENTHESIS);
         }
       }
     }
     else
     {
-      error(34);
+      error(MISSING_PROCEDURE_NAME);
     }
   }
   if (Token == BEGIN)
@@ -403,7 +407,7 @@ void statement()
     }
     else
     {
-      error(6);
+      error(MISSING_KEYWORD_END);
     }
   }
   if (Token == IF)
@@ -422,7 +426,7 @@ void statement()
     }
     else
     {
-      error(13);
+      error(MISSING_KEYWORD_THEN);
     }
   }
   if (Token == WHILE)
@@ -436,7 +440,7 @@ void statement()
     }
     else
     {
-      error(5);
+      error(MISSING_KEYWORD_DO);
     }
   }
   if (Token == FOR)
@@ -460,22 +464,22 @@ void statement()
           }
           else
           {
-            error(5);
+            error(MISSING_KEYWORD_DO);
           }
         }
         else
         {
-          error(14);
+          error(MISSING_KEYWORD_TO);
         }
       }
       else
       {
-        error(25);
+        error(MISSING_OPERATOR_ASSIGN);
       }
     }
     else
     {
-      error(33);
+      error(MISSING_VARIABLE_NAME);
     }
   }
 }
@@ -511,17 +515,17 @@ void block()
                   }
                   else
                   {
-                    error(30);
+                    error(MISSING_OPERAND);
                   }
                 }
                 else
                 {
-                  error(24);
+                  error(MISSING_PUNCTUATION_EQUAL);
                 }
               }
               else
               {
-                error(32);
+                error(MISSING_CONSTANT_NAME);
               }
             }
             if (Token == SEMICOLON)
@@ -530,22 +534,22 @@ void block()
             }
             else
             {
-              error(22);
+              error(MISSING_PUNCTUATION_SEMICOLON);
             }
           }
           else
           {
-            error(30);
+            error(MISSING_OPERAND);
           }
         }
         else
         {
-          error(24);
+          error(MISSING_PUNCTUATION_EQUAL);
         }
       }
       else
       {
-        error(32);
+        error(MISSING_CONSTANT_NAME);
       }
     }
     while (Token == VAR)
@@ -566,12 +570,12 @@ void block()
             }
             else
             {
-              error(20);
+              error(MISSING_PUNCTUATION_RIGHT_BRACKET);
             }
           }
           else
           {
-            error(35);
+            error(MISSING_RANGE_NUMBER);
           }
         }
         while (Token == COMMA)
@@ -592,18 +596,18 @@ void block()
                 }
                 else
                 {
-                  error(20);
+                  error(MISSING_PUNCTUATION_RIGHT_BRACKET);
                 }
               }
               else
               {
-                error(35);
+                error(MISSING_RANGE_NUMBER);
               }
             }
           }
           else
           {
-            error(33);
+            error(MISSING_VARIABLE_NAME);
           }
         }
         if (Token == SEMICOLON)
@@ -612,12 +616,12 @@ void block()
         }
         else
         {
-          error(22);
+          error(MISSING_PUNCTUATION_SEMICOLON);
         }
       }
       else
       {
-        error(33);
+        error(MISSING_VARIABLE_NAME);
       }
     }
     while (Token == PROCEDURE)
@@ -649,7 +653,7 @@ void block()
               }
               else
               {
-                error(36);
+                error(MISSING_PARAMETER_NAME);
               }
             }
             if (Token == RPARENT)
@@ -658,12 +662,12 @@ void block()
             }
             else
             {
-              error(18);
+              error(MISSING_PUNCTUATION_RIGHT_PARENTHESIS);
             }
           }
           else
           {
-            error(36);
+            error(MISSING_PARAMETER_NAME);
           }
         }
         if (Token == SEMICOLON)
@@ -672,7 +676,7 @@ void block()
         }
         else
         {
-          error(22);
+          error(MISSING_PUNCTUATION_SEMICOLON);
         }
         block();
         if (Token == SEMICOLON)
@@ -681,12 +685,12 @@ void block()
         }
         else
         {
-          error(22);
+          error(MISSING_PUNCTUATION_SEMICOLON);
         }
       }
       else
       {
-        error(34);
+        error(MISSING_PROCEDURE_NAME);
       }
     }
   }
@@ -706,7 +710,7 @@ void block()
     }
     else
     {
-      error(6);
+      error(MISSING_KEYWORD_END);
     }
   }
 }
@@ -730,21 +734,21 @@ void program()
         }
         else
         {
-          error(23);
+          error(MISSING_PUNCTUATION_PERIOD);
         }
       }
       else
       {
-        error(22);
+        error(MISSING_PUNCTUATION_SEMICOLON);
       }
     }
     else
     {
-      error(31);
+      error(MISSING_PROGRAM_NAME);
     }
   }
   else
   {
-    error(12);
+    error(MISSING_KEYWORD_PROGRAM);
   }
 }
