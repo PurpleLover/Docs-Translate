@@ -1,13 +1,18 @@
 #include "grammar.c"
 
-int main(int argc, char *argv[]) {
-  if (argc > 1) {
+int main(int argc, char *argv[])
+{
+  if (argc > 1)
+  {
     f = fopen(argv[1], "rt");
-  } else {
+  }
+  else
+  {
     f = fopen("Test.pl0", "rt");
   }
   Ch = ' ';
-  do {
+  do
+  {
     Token = getToken();
     program();
   } while (Token != NONE);
